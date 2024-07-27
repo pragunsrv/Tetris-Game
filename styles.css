@@ -1,53 +1,55 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #000;
-    color: #fff;
     font-family: Arial, sans-serif;
-}
-
-#game-container {
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-canvas {
-    border: 1px solid #fff;
-    background-color: #000;
-}
-
-#info {
-    margin-top: 10px;
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    width: 100%;
     text-align: center;
 }
 
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+}
+
+section {
+    margin: 1rem;
+}
+
+canvas {
+    border: 1px solid #000;
+}
+
 button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-#next-canvas, #hold-canvas {
-    border: 1px solid #fff;
-    margin-top: 10px;
-}
-
-#info div {
-    margin: 5px 0;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
 }
 
 #game-log {
-    margin-top: 10px;
-    height: 100px;
+    height: 150px;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border: 1px solid #fff;
-    color: #fff;
-    font-size: 14px;
+    border: 1px solid #000;
+    margin-top: 1rem;
+}
+
+#high-scores {
+    list-style-type: none;
+    padding: 0;
+}
+
+#high-scores li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
 }
