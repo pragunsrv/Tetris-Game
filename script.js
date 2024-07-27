@@ -16,6 +16,8 @@ let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 let currentTetromino = tetrominoes[Math.floor(Math.random() * tetrominoes.length)];
 let x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
 let y = 0;
+let score = 0;
+let linesCleared = 0;
 
 function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -83,11 +85,28 @@ function moveTetromino(dx, dy) {
     }
 }
 
+function clearLines() {
+    let linesToClear = [];
+    for (let row = 0; row < rows; row++) {
+        if (board[row].every(cell => cell)) {
+            linesToClear.push(row);
+        }
+    }
+    linesToClear.forEach(row => {
+        board.splice(row, 1);
+        board.unshift(Array(cols).fill(0));
+    });
+    linesCleared += linesToClear.length;
+    score += linesToClear.length * 100;
+    updateScore();
+}
+
 function dropTetromino() {
     if (!isCollision(0, 1)) {
         y++;
     } else {
         mergeTetromino();
+        clearLines();
         currentTetromino = tetrominoes[Math.floor(Math.random() * tetrominoes.length)];
         x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
         y = 0;
@@ -96,6 +115,11 @@ function dropTetromino() {
             console.log('Game Over');
         }
     }
+}
+
+function updateScore() {
+    document.getElementById('score').textContent = score;
+    document.getElementById('lines').textContent = linesCleared;
 }
 
 function gameLoop() {

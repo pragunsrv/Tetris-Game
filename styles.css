@@ -7,7 +7,19 @@ body {
     background-color: #000;
 }
 
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 canvas {
     border: 1px solid #fff;
     background-color: #000;
+}
+
+#info {
+    color: #fff;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
 }
