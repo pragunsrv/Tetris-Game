@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris - Version 5</title>
+    <title>Tetris - Version 6</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,12 +14,15 @@
             <div>Lines: <span id="lines">0</span></div>
             <div>Level: <span id="level">1</span></div>
             <div>Status: <span id="status">Running</span></div>
-        </div>
-        <button id="pause-btn">Pause</button>
-        <button id="resume-btn" style="display: none;">Resume</button>
-        <div id="next-tetromino">
-            <h3>Next:</h3>
+            <div>Speed: <span id="speed">1000</span> ms</div>
+            <div>Next Tetromino:</div>
             <canvas id="next-canvas" width="120" height="120"></canvas>
+            <div>Hold Tetromino:</div>
+            <canvas id="hold-canvas" width="120" height="120"></canvas>
+            <button id="pause-btn">Pause</button>
+            <button id="resume-btn" style="display: none;">Resume</button>
+            <button id="reset-btn">Reset Game</button>
+            <button id="hold-btn">Hold Tetromino</button>
         </div>
     </div>
     <script src="script.js"></script>

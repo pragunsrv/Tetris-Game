@@ -5,6 +5,8 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
 }
 
 #game-container {
@@ -19,9 +21,8 @@ canvas {
 }
 
 #info {
-    color: #fff;
     margin-top: 10px;
-    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
 button {
@@ -31,8 +32,11 @@ button {
     cursor: pointer;
 }
 
-#next-tetromino {
-    color: #fff;
+#next-canvas, #hold-canvas {
+    border: 1px solid #fff;
     margin-top: 10px;
-    font-family: Arial, sans-serif;
+}
+
+#info div {
+    margin: 5px 0;
 }

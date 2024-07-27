@@ -2,6 +2,8 @@ const canvas = document.getElementById('tetris');
 const ctx = canvas.getContext('2d');
 const nextCanvas = document.getElementById('next-canvas');
 const nextCtx = nextCanvas.getContext('2d');
+const holdCanvas = document.getElementById('hold-canvas');
+const holdCtx = holdCanvas.getContext('2d');
 const scale = 30;
 const rows = canvas.height / scale;
 const cols = canvas.width / scale;
@@ -17,12 +19,13 @@ const tetrominoes = [
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 let currentTetromino = getRandomTetromino();
 let nextTetromino = getRandomTetromino();
+let holdTetromino = null;
 let x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
 let y = 0;
 let score = 0;
 let linesCleared = 0;
 let level = 1;
-let dropSpeed = 1000; // Initial drop speed
+let dropSpeed = 1000;
 let isPaused = false;
 let gameInterval;
 let consecutiveLineClears = 0;
@@ -151,6 +154,25 @@ function drawNextTetromino() {
     drawTetromino(nextTetromino, 0, 0, nextCtx, true);
 }
 
+function drawHoldTetromino() {
+    holdCtx.clearRect(0, 0, holdCanvas.width, holdCanvas.height);
+    if (holdTetromino) {
+        drawTetromino(holdTetromino, 0, 0, holdCtx, true);
+    }
+}
+
+function holdTetrominoFunction() {
+    if (!holdTetromino) {
+        holdTetromino = currentTetromino;
+        currentTetromino = nextTetromino;
+        nextTetromino = getRandomTetromino();
+        x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
+        y = 0;
+        drawHoldTetromino();
+        drawNextTetromino();
+    }
+}
+
 function updateScore() {
     document.getElementById('score').textContent = score;
     document.getElementById('lines').textContent = linesCleared;
@@ -158,18 +180,11 @@ function updateScore() {
 
 function updateLevel() {
     level = Math.floor(linesCleared / 10) + 1;
-    dropSpeed = Math.max(500, 1000 - (level - 1) * 50);
+    dropSpeed = 1000 - (level - 1) * 100;
     document.getElementById('level').textContent = level;
+    document.getElementById('speed').textContent = dropSpeed;
     clearInterval(gameInterval);
     gameInterval = setInterval(gameLoop, dropSpeed);
-}
-
-function gameLoop() {
-    if (!isPaused) {
-        drawBoard();
-        drawTetromino(currentTetromino, x, y);
-        dropTetromino();
-    }
 }
 
 function togglePause() {
@@ -191,5 +206,7 @@ document.addEventListener('keydown', (event) => {
 
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 document.getElementById('resume-btn').addEventListener('click', togglePause);
+document.getElementById('reset-btn').addEventListener('click', () => location.reload());
+document.getElementById('hold-btn').addEventListener('click', holdTetrominoFunction);
 
 gameInterval = setInterval(gameLoop, dropSpeed);
