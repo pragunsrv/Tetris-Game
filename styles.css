@@ -40,3 +40,14 @@ button {
 #info div {
     margin: 5px 0;
 }
+
+#game-log {
+    margin-top: 10px;
+    height: 100px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 14px;
+}

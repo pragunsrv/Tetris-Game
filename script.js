@@ -143,7 +143,7 @@ function dropTetromino() {
         nextTetromino = getRandomTetromino();
         if (isCollision(0, 0)) {
             clearInterval(gameInterval);
-            console.log('Game Over');
+            logGameEvent('Game Over');
         }
         drawNextTetromino();
     }
@@ -162,15 +162,17 @@ function drawHoldTetromino() {
 }
 
 function holdTetrominoFunction() {
-    if (!holdTetromino) {
+    if (holdTetromino === null) {
         holdTetromino = currentTetromino;
         currentTetromino = nextTetromino;
         nextTetromino = getRandomTetromino();
         x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
         y = 0;
-        drawHoldTetromino();
-        drawNextTetromino();
+    } else {
+        [currentTetromino, holdTetromino] = [holdTetromino, currentTetromino];
     }
+    drawHoldTetromino();
+    drawNextTetromino();
 }
 
 function updateScore() {
@@ -185,6 +187,20 @@ function updateLevel() {
     document.getElementById('speed').textContent = dropSpeed;
     clearInterval(gameInterval);
     gameInterval = setInterval(gameLoop, dropSpeed);
+}
+
+function logGameEvent(message) {
+    const log = document.getElementById('game-log');
+    log.innerHTML += `<div>${message}</div>`;
+    log.scrollTop = log.scrollHeight;
+}
+
+function gameLoop() {
+    if (!isPaused) {
+        drawBoard();
+        drawTetromino(currentTetromino, x, y, ctx);
+        dropTetromino();
+    }
 }
 
 function togglePause() {
