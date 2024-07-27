@@ -18,6 +18,11 @@ let x = Math.floor(cols / 2) - Math.floor(currentTetromino[0].length / 2);
 let y = 0;
 let score = 0;
 let linesCleared = 0;
+let level = 1;
+let dropInterval = 1000; // Drop interval in milliseconds
+let dropSpeed = 1000; // Initial drop speed
+let isPaused = false;
+let gameInterval;
 
 function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -37,6 +42,17 @@ function drawTetromino() {
         for (let col = 0; col < currentTetromino[row].length; col++) {
             if (currentTetromino[row][col]) {
                 ctx.fillRect((x + col) * scale, (y + row) * scale, scale, scale);
+            }
+        }
+    }
+}
+
+function drawSpecialEffects() {
+    ctx.fillStyle = '#ff0';
+    for (let row = 0; row < rows; row++) {
+        if (board[row].every(cell => cell)) {
+            for (let col = 0; col < cols; col++) {
+                ctx.fillRect(col * scale, row * scale, scale, scale);
             }
         }
     }
@@ -99,6 +115,8 @@ function clearLines() {
     linesCleared += linesToClear.length;
     score += linesToClear.length * 100;
     updateScore();
+    drawSpecialEffects();
+    updateLevel();
 }
 
 function dropTetromino() {
@@ -112,6 +130,7 @@ function dropTetromino() {
         y = 0;
         if (isCollision(0, 0)) {
             // Game over logic could be added here
+            clearInterval(gameInterval);
             console.log('Game Over');
         }
     }
@@ -122,10 +141,30 @@ function updateScore() {
     document.getElementById('lines').textContent = linesCleared;
 }
 
+function updateLevel() {
+    level = Math.floor(linesCleared / 10) + 1;
+    dropSpeed = Math.max(500, 1000 - (level - 1) * 50); // Adjust drop speed
+    document.getElementById('level').textContent = level;
+    clearInterval(gameInterval);
+    gameInterval = setInterval(gameLoop, dropSpeed);
+}
+
 function gameLoop() {
-    drawBoard();
-    drawTetromino();
-    dropTetromino();
+    if (!isPaused) {
+        drawBoard();
+        drawTetromino();
+        dropTetromino();
+    }
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    document.getElementById('status').textContent = isPaused ? 'Paused' : 'Running';
+    document.getElementById('pause-btn').style.display = isPaused ? 'none' : 'inline';
+    document.getElementById('resume-btn').style.display = isPaused ? 'inline' : 'none';
+    if (!isPaused) {
+        updateLevel();
+    }
 }
 
 document.addEventListener('keydown', (event) => {
@@ -135,4 +174,7 @@ document.addEventListener('keydown', (event) => {
     if (event.code === 'ArrowUp') rotateTetromino();
 });
 
-setInterval(gameLoop, 1000);
+document.getElementById('pause-btn').addEventListener('click', togglePause);
+document.getElementById('resume-btn').addEventListener('click', togglePause);
+
+gameInterval = setInterval(gameLoop, dropSpeed);
