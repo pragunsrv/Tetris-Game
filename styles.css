@@ -30,3 +30,9 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+#next-tetromino {
+    color: #fff;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+}
