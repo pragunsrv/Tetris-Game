@@ -1,53 +1,71 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #000;
-    color: #fff;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+main {
+    margin-top: 20px; /* Adjusted for spacing below the removed header */
 }
 
 #game-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 20px; /* Additional spacing below the header */
+}
+
+#tetris {
+    border: 1px solid #000;
+    background-color: #eee;
+}
+
+#sidebar {
+    margin-left: 20px;
 }
 
 canvas {
-    border: 1px solid #fff;
-    background-color: #000;
+    border: 1px solid #000;
+    background-color: #ddd;
 }
 
-#info {
-    margin-top: 10px;
-    text-align: center;
+h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#stats {
+    margin: 10px 0;
+}
+
+#stats p {
+    margin: 5px 0;
 }
 
 button {
-    margin: 5px;
+    display: block;
+    margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
 }
 
-#next-canvas, #hold-canvas {
-    border: 1px solid #fff;
-    margin-top: 10px;
-}
-
-#info div {
-    margin: 5px 0;
-}
-
 #game-log {
-    margin-top: 10px;
-    height: 100px;
+    border: 1px solid #000;
+    height: 150px;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border: 1px solid #fff;
-    color: #fff;
-    font-size: 14px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+#high-scores {
+    list-style-type: none;
+    padding: 0;
+}
+
+#high-scores li {
+    padding: 5px 0;
 }
