@@ -8,14 +8,25 @@ body {
     background-color: #f0f0f0;
 }
 
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
 main {
-    margin-top: 20px; /* Adjusted for spacing below the removed header */
+    margin-top: 60px; /* Adjusted for header height */
 }
 
 #game-container {
     display: flex;
     align-items: flex-start;
-    margin-top: 20px; /* Additional spacing below the header */
 }
 
 #tetris {

@@ -239,4 +239,3 @@ updateScore();
 drawNextTetromino();
 drawHoldTetromino();
 gameInterval = setInterval(gameLoop, dropSpeed);
-    
